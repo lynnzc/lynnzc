@@ -1,0 +1,2 @@
+# lynnzc
+blog blog blog 
