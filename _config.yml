@@ -1,0 +1,73 @@
+# SITE CONFIGURATION
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: "http://lynnzc.github.io" # the base hostname & protocol for your site
+
+# THEME-SPECIFIC CONFIGURATION
+theme:
+  # Meta
+  title: Lynn's Blog
+  avatar: me.png
+  gravatar: # Email MD5 hash
+  description: "言成" # used by search engines
+
+  # Header and footer text
+  header_text: >
+     <p>如果有一刹那，上帝忘记我是一只布偶并赋予我片刻生命，我可能不会说出我心中的一切所想，但我必定会思考我所说的一切。</p>
+
+     <p>Time you enjoy wasting, was not wasted.</p>
+  header_text_feature_image:
+  footer_text: >
+   By <a href="http://lynnzc.github.io">lynn</a>
+
+  # Icons
+  rss: false
+  email_address: "lynnzclyf@gmail.com" # Full email address, e.g. "sam@example.com"
+  behance:
+  bitbucket:
+  dribbble:
+  facebook:
+  flickr:
+  github: "lynnzc"
+  google_plus:
+  instagram:
+  linkedin:  # Full URL
+  pinterest:
+  reddit:
+  soundcloud:
+  stack_exchange:  # Full URL
+  steam:
+  tumblr:
+  twitter: 
+  wordpress:
+  youtube:
+
+  # Scripts
+  google_analytics: # Tracking ID, e.g. "UA-000000-01"
+  disqus_shortname:
+  katex: true # Enable if using math markup
+
+  # Localization strings
+  str_follow_on: "Follow on"
+  str_rss_follow: "Follow RSS feed"
+  str_email: "Email"
+  str_next: "Next"
+  str_prev: "Prev"
+  str_continue_reading: "Continue reading"
+
+  # Colours, typography and padding
+  # Open the "_sass > base" folder, and open "_variables.scss"
+  google_fonts: "Source+Sans+Pro:400,700,700italic,400italic"
+  
+  # Post navigation
+  post_navigation: false
+
+# PAGINATION
+paginate: 5
+paginate_path: "blog/page:num"
+
+# BUILD SETTINGS
+markdown: kramdown
+highlighter: pygments
+sass:
+  sass_dir: _sass
+  style: :compressed
