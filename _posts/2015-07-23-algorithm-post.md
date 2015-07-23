@@ -33,14 +33,14 @@ title: 二叉树的进化论(一)
     - Middle-link连接的子树的Key 处于L-Key和R-Key之间，  
     - Right-link连接的右子树的Key 大于 R-Key；  
   
- <img src="../img/3node.png" />  
+ ![3-node]({{"/img/3node.png"}})    
 
 *经过不短的摸索，三多，现在叫2-3 tree，发现自己高度减少了，技能上多了个光环，于是迷迷糊糊就找上了树族长，得到一本《树经》，他便翻了起来。*  
   
 2-3 tree随着普遍的高度减少，查找的效率相应地提高。  
 对于插入的操作，因为结点的结构不再单一，便有不同的情况：    
 1. 当插入到2-node时，这好办，2-node变3-node  
-  ![insert2node](https://github.com/lynnzc/lynnzc.github.io/tree/master/img/insert2node.png)  
+  ![insert2node]({{"/img/insert2node.png"}})  
 2. 但是对于3-node时却不能这么做了，因为3-node已经是单个结点的终极形态。于是，我们使用**分解**大法，从本不合理的4-node结构中提取出中部的Key，形成三个新的2-node。  
   ![insert3node](https://github.com/lynnzc/lynnzc.github.io/tree/master/img/insert3node.png)
   ![devide3into2](https://github.com/lynnzc/lynnzc.github.io/tree/master/img/devide3into2node.png)  
