@@ -15,8 +15,8 @@ title: 二叉树的进化论(一)
   说干就干是三多的特点，于是，他从自身改造出了第一个3-node结构。  
   很快，他又往身上弄了更多3-node。   
   三多看着自己完全走样的身材，十分满意，还给自己起了个洋名字。*  
-  
-  *“从今天起，我叫 2-3 tree。” *  
+
+  *“从今天起，我叫 2-3 tree。”*  
 
   ****
   
@@ -25,7 +25,7 @@ title: 二叉树的进化论(一)
   - 2-node : 有且仅有一个key， 两条Link，分别是left-link，和right-link。  
     - 2-node根据key排序方式与一般二叉树无异;  
      
- ![2-node]({"/img/2node.png"})  
+ ![2-node]({{"/img/2node.png"}})  
 
   - 3-node : 有两个key,分别为L-Key, R-Key, 而L-Key < R-Key。  
    有三条Link，分别是Left-link, Middle-link, Right-link，  
@@ -33,7 +33,7 @@ title: 二叉树的进化论(一)
     - Middle-link连接的子树的Key 处于L-Key和R-Key之间，  
     - Right-link连接的右子树的Key 大于 R-Key；  
   
- <img src="https://github.com/lynnzc/lynnzc.github.io/tree/master/img/3node.png" />  
+ <img src="../img/3node.png" />  
 
 *经过不短的摸索，三多，现在叫2-3 tree，发现自己高度减少了，技能上多了个光环，于是迷迷糊糊就找上了树族长，得到一本《树经》，他便翻了起来。*  
   
