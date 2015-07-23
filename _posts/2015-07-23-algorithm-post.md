@@ -105,23 +105,24 @@ title: 二叉树的进化论(一)
 
 2-3-4 tree的插入和删除操作，类似于2-3 tree。  
 当元素插入到4-node，我们先将该4-node分解成三个2-node结构，按照2-3 tree时所描述的方法向上合并，然后再进行插入该元素到合适位置。  
-为使插入操作更清晰，一种**top-down approach**，在查找插入位置时，从根结点开始，遇到4-node，便把它拆分，向上合并，直到插入的叶结点位置。  
-    //topdown approach的插入伪代码
-    insert(Key key, Value value) {
-        Node cur = root;
-        while(cur.chooseChild(key) != NULL) {   
-            //根据key,和当前node的结果返回合适的child  
-            cur = cur.chooseChild(key);  
-            if(cur.isFourNode()) {  
-               cur.split(); //拆分成三个2-node的方法  
-            }  
-        }  
-        if(cur.isTwoNode()) {  
-           cur.makeThreeNode(key, value); //变成3-node  
-        }else if(cur.isThreeNode()) {  
-           cur.makeFourNode(key, value); //变成4-node  
-        }  
-    }  
+为使插入操作更清晰，一种**top-down approach**，在查找插入位置时，从根结点开始，遇到4-node，便把它拆分，向上合并，直到插入的叶结点位置。
+  
+     //topdown approach的插入伪代码
+     insert(Key key, Value value) {
+         Node cur = root;
+         while(cur.chooseChild(key) != NULL) {   
+             //根据key,和当前node的结果返回合适的child  
+             cur = cur.chooseChild(key);  
+             if(cur.isFourNode()) {  
+                cur.split(); //拆分成三个2-node的方法  
+             }  
+         }  
+         if(cur.isTwoNode()) {  
+            cur.makeThreeNode(key, value); //变成3-node  
+         }else if(cur.isThreeNode()) {  
+            cur.makeFourNode(key, value); //变成4-node  
+         }  
+     }  
   
   
 该方法有两个保证：  
