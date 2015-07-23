@@ -25,7 +25,11 @@ title: 二叉树的进化论(一)
   - 2-node : 有且仅有一个key， 两条Link，分别是left-link，和right-link。  
     - 2-node根据key排序方式与一般二叉树无异;  
      
+<<<<<<< HEAD
  ![2-node]({{"/img/2node.png"}})  
+=======
+ ![2-node](img/2node.png)  
+>>>>>>> 2ec1e96ba15f869a909ae1cdeb0e7c2cde27f89c
 
   - 3-node : 有两个key,分别为L-Key, R-Key, 而L-Key < R-Key。  
    有三条Link，分别是Left-link, Middle-link, Right-link，  
@@ -106,7 +110,11 @@ title: 二叉树的进化论(一)
 2-3-4 tree的插入和删除操作，类似于2-3 tree。  
 当元素插入到4-node，我们先将该4-node分解成三个2-node结构，按照2-3 tree时所描述的方法向上合并，然后再进行插入该元素到合适位置。  
 为使插入操作更清晰，一种**top-down approach**，在查找插入位置时，从根结点开始，遇到4-node，便把它拆分，向上合并，直到插入的叶结点位置。
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> 2ec1e96ba15f869a909ae1cdeb0e7c2cde27f89c
      //topdown approach的插入伪代码
      insert(Key key, Value value) {
          Node cur = root;
