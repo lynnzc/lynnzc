@@ -2,7 +2,7 @@
 layout: post
 title: 二叉树的进化论(一)
 ---
-  故事写不好，跑来写技术分析的键盘钢琴师。  
+  写不出小说，多发呆，现在跑来写技术分析的键盘钢琴师。  
   
   *“高度是上帝的诅咒。他就是嫉妒！”——《树经》*  
     
@@ -34,9 +34,11 @@ title: 二叉树的进化论(一)
       - Right-link连接的右子树的Key 大于 R-Key；  
   
   ![3-node]({{"/img/3node.png"}})    
-
+***
 *经过不短的摸索，三多，现在叫2-3 tree，发现自己高度减少了，技能上多了个光环，于是迷迷糊糊就找上了树族长，得到一本《树经》，他便翻了起来。*  
-  
+
+***
+
 2-3 tree随着普遍的高度减少，查找的效率相应地提高。  
 对于插入的操作，因为结点的结构不再单一，便有不同的情况：    
   1. 当插入到2-node时，这好办，2-node变3-node  
@@ -89,6 +91,7 @@ title: 二叉树的进化论(一)
   综合来看，2-3 tree的树高度增加和减少，恰好是一个逆过程，从下往上增加，以及从上往下减少。  
   同时，我们明显感觉到了，插入和删除的情况众多，实现2-3 tree的代码复杂度相当高，包括将介绍的2-3-4 tree，其复杂度也随多叉结点度数的增大而增大。
 
+***
   *2-3 tree相当明显地减少了高度，天赋异禀，一跃成为树族群的明星人物，一大波树妖美女嚷嚷着要跟2-3 tree生猴子。  
   大群的2-3 tree后代在树群中繁衍了开来，实乃生命的大和谐啊。  
   2-3 tree的后人们继承了当年还叫三多的祖先那股精神气，为更小的高度而奋斗。  如果增加到4-node呢？  
@@ -107,20 +110,20 @@ title: 二叉树的进化论(一)
 当元素插入到4-node，我们先将该4-node分解成三个2-node结构，按照2-3 tree时所描述的方法向上合并，然后再进行插入该元素到合适位置。  
 为使插入操作更清晰，一种**top-down approach**，在查找插入位置时，从根结点开始，遇到4-node，便把它拆分，向上合并，直到插入的叶结点位置。
 
-{% highlight Java linenos %}
- //topdown approach的插入伪代码
+{% highlight C linenos %}
+ //top-down approach的插入伪代码
  insert(Key key, Value value) {
      Node cur = root;
      while(cur.chooseChild(key) != NULL) {   
-         //根据key,和当前node的结果返回合适的child  
+         //根据key,和当前node的结构返回合适的child结点  
          cur = cur.chooseChild(key);  
          if(cur.isFourNode()) {  
-            cur.split(); //拆分成三个2-node的方法  
+            cur.split(); //拆分成三个2-node  
          }  
      }  
      if(cur.isTwoNode()) {  
         cur.makeThreeNode(key, value); //变成3-node  
-     }else if(cur.isThreeNode()) {  
+     }else /*if(cur.isThreeNode())*/ {  
         cur.makeFourNode(key, value); //变成4-node  
      }  
  }  
@@ -133,6 +136,7 @@ title: 二叉树的进化论(一)
 2-3-4 tree的删除也是类似2-3 tree的分析过程，简化步骤，用IP或IS替代删除结点，让删除发生在叶子结点上，对于3-node，4-node的结点采用直接删除的方式。  
 而对于2-node，情况将变得更加多和更复杂，因此不花时间阐述。  
 
+***
 *为了使插入，删除操作变得清晰，简单。  
 伟大的《树经》引导树群再次进化。*  
   
