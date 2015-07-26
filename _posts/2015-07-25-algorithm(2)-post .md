@@ -410,7 +410,7 @@ RBT具有**显色性**，为了发挥红黑树的特性，插入的结点都假�
 {% endhighlight %}  
 
 ***
-<h2>**References**</h2> 
+<h2>References</h2> 
   
   **[1]**.  Cormen, Thomas; Leiserson, Charles; Rivest, Ronald; Stein, Clifford (2009). "13". Introduction to Algorithms (3rd ed.). MIT Press. pp. 308–338. ISBN 978-0-262-03384-8.  
   **[2]**. [http://www.cs.princeton.edu/~rs/talks/LLRB/RedBlack.pdf](http://www.cs.princeton.edu/~rs/talks/LLRB/RedBlack.pdf)  
