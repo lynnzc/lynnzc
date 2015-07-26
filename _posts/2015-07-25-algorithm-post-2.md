@@ -141,7 +141,7 @@ RBT具有**显色性**，为了发挥红黑树的特性，插入的结点都假�
 ![rotateLeft]({{"/img/rotateLeft.png"}})  
 ![rotateRight]({{"/img/rotateRight.png"}})  
 ~~~~~~~~
-{ % highlight Java % }  
+{% highlight Java %}  
     Node rotateLeft(Node cur) {
         Node next = cur.right;
         cur.right = next.left;
