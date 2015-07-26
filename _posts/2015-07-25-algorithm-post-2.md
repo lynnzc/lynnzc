@@ -54,7 +54,7 @@ title: 二叉树的进化论(二)
 接下来，我们应该考虑，插入和删除的实现过程。  
 
 RBT具有**显色性**，为了发挥红黑树的特性，插入的结点都假设为红结点。  
-~~~~~~~~
+~~~
 {% highlight Java %}  
  //文中均是类Java伪代码
     Node insert(Node root, Key key, Value value) {
@@ -76,7 +76,7 @@ RBT具有**显色性**，为了发挥红黑树的特性，插入的结点都假�
     }  
 
 {% endhighlight %}  
-~~~~~~~~
+~~~
 
 因此，插入存在两种结果：  
   1. 插入结点的父结点为黑结点，完成插入过程。  
@@ -85,7 +85,7 @@ RBT具有**显色性**，为了发挥红黑树的特性，插入的结点都假�
   ![red-red]({{"/img/red-red.png"}})  
 
 我们需要判断结点颜色： 
-~~~~~~~~ 
+~~~
 {% highlight Java %} 
     //RED : true, BLACK : false
     static final boolean RED = true;
@@ -97,12 +97,12 @@ RBT具有**显色性**，为了发挥红黑树的特性，插入的结点都假�
         return node.color == RED;
     }
 {% endhighlight %}   
-~~~~~~~~
+~~~
 
 插入到3-node中，那么这几种情况需要经过转化才能得到4-node。  
 ![fix2red]({{"/img/fix2red.png"}})  
 我们在插入后，需判断插入的新结点跟当前结点的关系，以及根据当前结点与父结点的关系来判断操作，我们引入一个lr_child表示当前结点是父结点的左孩子或右孩子。
-~~~~~~~~
+~~~
 {% highlight Java %}  
     //lr_child, true-当前结点为左孩子，false-当前结点为右孩子
     Node insert(Node root, Key key, Value value, boolean lr_child) {
@@ -136,11 +136,11 @@ RBT具有**显色性**，为了发挥红黑树的特性，插入的结点都假�
         ...
     }
 {% endhighlight %}  
-~~~~~~~~
+~~~
 转换的过程中，我们引入了旋转的方法。
 ![rotateLeft]({{"/img/rotateLeft.png"}})  
 ![rotateRight]({{"/img/rotateRight.png"}})  
-~~~~~~~~
+~~~
 {% highlight Java %}  
     Node rotateLeft(Node cur) {
         Node next = cur.right;
@@ -160,7 +160,7 @@ RBT具有**显色性**，为了发挥红黑树的特性，插入的结点都假�
         return next;
     }
 {% endhighlight %}  
-~~~~~~~~
+~~~
 
 是不是这样插入就完成了呢？
 细心的肯定也发现了，如果我们插入发生在4-node的话。  
@@ -171,7 +171,7 @@ RBT具有**显色性**，为了发挥红黑树的特性，插入的结点都假�
 当然是没有问题的。
 ![flip Colors]({{"/img/flipcolors.png"}})  
 我们引入这个方法称为Flip Colors。  
-~~~~~~~~
+~~~
 {% highlight Java %}  
     void flipColors(Node n) {
         n.color = !n.color;
@@ -179,9 +179,9 @@ RBT具有**显色性**，为了发挥红黑树的特性，插入的结点都假�
         n.right.color = !n.right.color;
     }
 {% endhighlight %}  
-~~~~~~~~
+~~~
 结合我们讨论2-3-4 tree时所采用的Top-down appraach，这样我们就能完善插入操作： 
-~~~~~~~~ 
+~~~
 {% highlight Java %}  
     Node insert(Node root, Key key, Value value, boolean lr_child) {
         if(root == T.nil) {
@@ -221,10 +221,10 @@ RBT具有**显色性**，为了发挥红黑树的特性，插入的结点都假�
         return root;
     }
 {% endhighlight %}  
-~~~~~~~~
+~~~
 有人问，如果把Flip Colors放到最后，会怎样？
 那么，此时RBT就相当于2-3 tree的实现了，因为递归回退过程中，相当于2-3 tree的拆分4-node再向上合并操作，最终没有4-node存在。 
-~~~~~~~~ 
+~~~
 {% highlight Java %}  
     Node insert(Node root, Key key, Value value, boolean lr_child) {
         ...
@@ -238,9 +238,9 @@ RBT具有**显色性**，为了发挥红黑树的特性，插入的结点都假�
         return root;
     }
 {% endhighlight %}  
-~~~~~~~~
+~~~
 有人可能会有疑问，那么根必黑特性不是被破坏了么？  
-~~~~~~~~
+~~~
 {% highlight Java %}  
     Node insert(Node root, Key key, Value value, boolean lr_child) {
         ...
@@ -250,7 +250,7 @@ RBT具有**显色性**，为了发挥红黑树的特性，插入的结点都假�
         T.root = BLACK;
     }
 {% endhighlight %} 
-~~~~~~~~
+~~~
 插入的情况还是有点多，这样删除通常也比较复杂，那么还能不能再简单一些？
 那如果我们限制3-node的红结点只有一边呢？假如只有左边是红结点。
 
@@ -264,7 +264,7 @@ RBT具有**显色性**，为了发挥红黑树的特性，插入的结点都假�
 我们观察结点情况：  
 ![right to left]({{"/img/right2left.png"}})  
 那么插入操作将简化成： 
-~~~~~~~~ 
+~~~
 {% highlight Java %}  
     Node insert(Node root, Key key, Value value) {
         if(root == T.nil) {
@@ -297,7 +297,7 @@ RBT具有**显色性**，为了发挥红黑树的特性，插入的结点都假�
         return root;
     }
 {% endhighlight %}  
-~~~~~~~~
+~~~
 现在看起来是不是更加地清晰呢！  
 
 接下来分析删除。  
@@ -307,16 +307,16 @@ RBT具有**显色性**，为了发挥红黑树的特性，插入的结点都假�
 如果删除在底部的红结点，对RBT的特性不会产生影响，删除操作可以结束。  
 但是，假如底部删除的是一个2-node，或者删除的结点不在底部，情况就变得复杂。  
 如果删除结点不在底部的话，我们通过前文讨论过的方法，通过寻找直接后继(IS)来替代删除结点，使删除发生在底部。  
-~~~~~~~~
+~~~
 {% highlight Java %}  
     successor = findMin(n.right);
     n.key = successor.key;
     n.value = successor.value;
     n.right = deleteMin(n.right);
 {% endhighlight %}  
-~~~~~~~~
+~~~
 对于deleteMin操作  
-~~~~~~~~
+~~~
 {% highlight Java %}  
     Node deleteMin(Node n) {
         if(n.left == T.nil) {
@@ -349,8 +349,7 @@ RBT具有**显色性**，为了发挥红黑树的特性，插入的结点都假�
         }
     }
 {% endhighlight %}
-~~~~~~~~
-~~~~~~~~
+
 {% highlight Java %}  
     Node moveRedLeft(Node n) {
         //假设父亲借点
@@ -375,9 +374,9 @@ RBT具有**显色性**，为了发挥红黑树的特性，插入的结点都假�
         return n;
     }
 {% endhighlight %}  
-~~~~~~~~
+~~~
 那么现在我们可以完善删除操作：  
-~~~~~~~~
+~~~
 {% highlight Java %}  
     delete(Node cur, Key key) {
         int cmp = key.compareTo(cur.key);
@@ -409,7 +408,8 @@ RBT具有**显色性**，为了发挥红黑树的特性，插入的结点都假�
         return fixUp(cur);
     }
 {% endhighlight %}  
-~~~~~~~~
+~~~
+
 ***
 #References  
   
