@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 二叉树的进化论(一)
+title: 二叉树的进化论(二)
 ---
 *作为二叉树的新贵，2-3-4 tree让树群陷入了一片多结点的疯狂之中。*  
 *树史中记载为结点大爆炸运动。*  
@@ -410,7 +410,7 @@ RBT具有**显色性**，为了发挥红黑树的特性，插入的结点都假�
 {% endhighlight %}  
 
 ***
-# References # 
+<h2>**References**</h2> 
   
   **[1]**.  Cormen, Thomas; Leiserson, Charles; Rivest, Ronald; Stein, Clifford (2009). "13". Introduction to Algorithms (3rd ed.). MIT Press. pp. 308–338. ISBN 978-0-262-03384-8.  
   **[2]**. [http://www.cs.princeton.edu/~rs/talks/LLRB/RedBlack.pdf](http://www.cs.princeton.edu/~rs/talks/LLRB/RedBlack.pdf)  
