@@ -2,7 +2,8 @@
 layout: post
 title: 二叉树的进化论(二)
 ---
-*作为二叉树的新贵，2-3-4 tree让树群陷入了一片多结点的疯狂之中。树史中记载为结点大爆炸运动。*  
+*作为二叉树的新贵，2-3-4 tree让树群陷入了一片多结点的疯狂之中。*  
+*树史中记载为结点大爆炸运动。*  
 *树群们不断高喊造出5-node，6-node，甚至是100-node的口号，乐观的甚至已经在幻想一个结点统治世界的场景。*  
 *实际上，按照这个趋势，树群们确实会发展出一种普遍的平衡树结构，B-tree。不过这也是以后的故事了。*
 *多结点固然使高度的降低，天赋尽显。但凡事有利必有弊，对于插入和删除，代码的复杂度却大大地增加，尤其是超过4-node的结构。*  
@@ -12,7 +13,7 @@ title: 二叉树的进化论(二)
 
 ****
 
-**Red-Black Tree**, 打破传统的二叉树新贵，胸怀树群大一统的野心。结构特点：
+**Red-Black Tree**, 打破传统的二叉树新贵，胸怀树群大一统的野心。结构特点：  
     1. 结点是红色或者黑色的，简称**显色性**。  
     2. 根结点必然是黑色的，简称**根必黑**。  
     3. 叶子结点也是黑色的，简称**叶(也)黑**。  
@@ -27,9 +28,9 @@ title: 二叉树的进化论(二)
   - 2-3-4 tree的2-node vs RBT的表示: 
   ![rbt-2node]({{"/img/rbt2node.png"}})  
   - 3-node vs RBT的表示:  
-  ![rbt-3node]({{"/img/rbt3node.png"}})
+  ![rbt-3node]({{"/img/rbt3node.png"}})  
   - 4-node vs RBT的表示:  
-  ![rbt-4node]({{"/img/rbt4node.png"}})
+  ![rbt-4node]({{"/img/rbt4node.png"}})  
 
 题外话：有的书或者教材描述路径为红黑，本质上和结点没有区别。  
 
@@ -52,8 +53,8 @@ title: 二叉树的进化论(二)
 上述证明RBT的高度不超过2lg(N+1)，那么可以保证查找，插入，删除操作的效率在O(lgN)。  
 接下来，我们应该考虑，插入和删除的实现过程。  
 
-RBT具有**显色性**，为了发挥红黑树的特性，插入的结点都假设为红结点。 
-{ % highlight YMAL % }  
+RBT具有**显色性**，为了发挥红黑树的特性，插入的结点都假设为红结点。  
+{% highlight YMAL %}  
  //文中均是类Java伪代码
     Node insert(Node root, Key key, Value value) {
         if(root == T.nil) {
@@ -73,7 +74,7 @@ RBT具有**显色性**，为了发挥红黑树的特性，插入的结点都假�
     ...
     }  
 
-{ % endhighlight % }  
+{% endhighlight %}  
 
 因此，插入存在两种结果：  
   1. 插入结点的父结点为黑结点，完成插入过程。  
@@ -82,7 +83,7 @@ RBT具有**显色性**，为了发挥红黑树的特性，插入的结点都假�
   ![red-red]({{"/img/red-red.png"}})  
 
 我们需要判断结点颜色：  
-{ % highlight YAML % } 
+{% highlight YAML %} 
     //RED : true, BLACK : false
     static final boolean RED = true;
     static final boolean BLACK = false;
@@ -92,13 +93,13 @@ RBT具有**显色性**，为了发挥红黑树的特性，插入的结点都假�
         }
         return node.color == RED;
     }
-{ % endhighlight % }   
+{% endhighlight %}   
 
 插入到3-node中，那么这几种情况需要经过转化才能得到4-node。  
 ![fix2red]({{"/img/fix2red.png"}})  
 我们在插入后，需判断插入的新结点跟当前结点的关系，以及根据当前结点与父结点的关系来判断操作，我们引入一个lr_child表示当前结点是父结点的左孩子或右孩子。
 
-{ % highlight YAML % }  
+{% highlight YAML %}  
     //lr_child, true-当前结点为左孩子，false-当前结点为右孩子
     Node insert(Node root, Key key, Value value, boolean lr_child) {
         ...
@@ -130,7 +131,7 @@ RBT具有**显色性**，为了发挥红黑树的特性，插入的结点都假�
         }
         ...
     }
-{ % endhighlight % }  
+{% endhighlight %}  
 转换的过程中，我们引入了旋转的方法。
 ![rotateLeft]({{"/img/rotateLeft.png"}})  
 ![rotateRight]({{"/img/rotateRight.png"}})  
@@ -152,7 +153,7 @@ RBT具有**显色性**，为了发挥红黑树的特性，插入的结点都假�
         next.right.color = RED;
         return next;
     }
-{ % endhighlight % }  
+{% endhighlight %}  
 
 是不是这样插入就完成了呢？
 细心的肯定也发现了，如果我们插入发生在4-node的话。  
@@ -163,16 +164,16 @@ RBT具有**显色性**，为了发挥红黑树的特性，插入的结点都假�
 当然是没有问题的。
 ![flip Colors]({{"/img/flipcolors.png"}})  
 我们引入这个方法称为Flip Colors。  
-{ % highlight YAML % }  
+{% highlight YAML %}  
     void flipColors(Node n) {
         n.color = !n.color;
         n.left.color = !n.left.color;
         n.right.color = !n.right.color;
     }
-{ % endhighlight % }  
+{% endhighlight %}  
 
 结合我们讨论2-3-4 tree时所采用的Top-down appraach，这样我们就能完善插入操作：  
-{ % highlight YAML % }  
+{% highlight YAML %}  
     Node insert(Node root, Key key, Value value, boolean lr_child) {
         if(root == T.nil) {
             return new Node(key, value, RED); //总是红结点
@@ -210,10 +211,10 @@ RBT具有**显色性**，为了发挥红黑树的特性，插入的结点都假�
         }
         return root;
     }
-{ % endhighlight % }  
+{% endhighlight %}  
 有人问，如果把Flip Colors放到最后，会怎样？
 那么，此时RBT就相当于2-3 tree的实现了，因为递归回退过程中，相当于2-3 tree的拆分4-node再向上合并操作，最终没有4-node存在。  
-{ % highlight YAML % }  
+{% highlight YAML %}  
     Node insert(Node root, Key key, Value value, boolean lr_child) {
         ...
         //考虑插入后结点与父结点的关系，简化。
@@ -225,9 +226,9 @@ RBT具有**显色性**，为了发挥红黑树的特性，插入的结点都假�
         }  
         return root;
     }
-{ % endhighlight % }  
+{% endhighlight %}  
 有人可能会有疑问，那么根必黑特性不是被破坏了么？
-{ % highlight YAML % }  
+{% highlight YAML %}  
     Node insert(Node root, Key key, Value value, boolean lr_child) {
         ...
     }
@@ -235,7 +236,7 @@ RBT具有**显色性**，为了发挥红黑树的特性，插入的结点都假�
         insert(root, key, value, true); //根结点lr_child没有影响
         T.root = BLACK;
     }
-{ % endhighlight % } 
+{% endhighlight %} 
 
 插入的情况还是有点多，这样删除通常也比较复杂，那么还能不能再简单一些？
 那如果我们限制3-node的红结点只有一边呢？假如只有左边是红结点。
@@ -246,11 +247,11 @@ RBT具有**显色性**，为了发挥红黑树的特性，插入的结点都假�
 
 ***
 
-*Left-Leaning Red-Black Tree*，因为未知原因，割掉右臂的Red-Black Tree。  
-我们观察结点情况：
+**Left-Leaning Red-Black Tree**，因为未知原因，割掉右臂的Red-Black Tree。  
+我们观察结点情况：  
 ![right to left]({{"/img/right2left.png"}})  
 那么插入操作将简化成：  
-{ % highlight YAML % }  
+{% highlight YAML %}  
     Node insert(Node root, Key key, Value value) {
         if(root == T.nil) {
             return new Node(key, value, RED); //总是红结点
@@ -281,7 +282,7 @@ RBT具有**显色性**，为了发挥红黑树的特性，插入的结点都假�
         }
         return root;
     }
-{ % endhighlight % }  
+{% endhighlight %}  
 现在看起来是不是更加地清晰呢！  
 
 接下来分析删除。  
@@ -291,14 +292,14 @@ RBT具有**显色性**，为了发挥红黑树的特性，插入的结点都假�
 如果删除在底部的红结点，对RBT的特性不会产生影响，删除操作可以结束。  
 但是，假如底部删除的是一个2-node，或者删除的结点不在底部，情况就变得复杂。  
 如果删除结点不在底部的话，我们通过前文讨论过的方法，通过寻找直接后继(IS)来替代删除结点，使删除发生在底部。  
-{ % highlight YAML % }  
+{% highlight YAML %}  
     successor = findMin(n.right);
     n.key = successor.key;
     n.value = successor.value;
     n.right = deleteMin(n.right);
-{ % endhighlight % }  
+{% endhighlight %}  
 对于deleteMin操作  
-{ % highlight YAML % }  
+{% highlight YAML %}  
     Node deleteMin(Node n) {
         if(n.left == T.nil) {
             return T.nil;
@@ -329,8 +330,8 @@ RBT具有**显色性**，为了发挥红黑树的特性，插入的结点都假�
             flipColors(root);                 //类比2-3-4 tree拆分4-node的方法
         }
     }
-{ % endhighlight % }
-{ % highlight YAML % }  
+{% endhighlight %}
+{% highlight YAML %}  
     Node moveRedLeft(Node n) {
         //假设父亲借点
         flipColors(n);
@@ -353,9 +354,9 @@ RBT具有**显色性**，为了发挥红黑树的特性，插入的结点都假�
         }
         return n;
     }
-{ % endhighlight % }  
+{% endhighlight %}  
 那么现在我们可以完善删除操作：
-{ % highlight YAML % }  
+{% highlight YAML %}  
     delete(Node cur, Key key) {
         int cmp = key.compareTo(cur.key);
         if(cmp < 0) {
@@ -385,9 +386,9 @@ RBT具有**显色性**，为了发挥红黑树的特性，插入的结点都假�
         }
         return fixUp(cur);
     }
-{ % endhighlight % }  
+{% endhighlight %}  
 
 ***
-#References
+#References  
   **[1]**.  Cormen, Thomas; Leiserson, Charles; Rivest, Ronald; Stein, Clifford (2009). "13". Introduction to Algorithms (3rd ed.). MIT Press. pp. 308–338. ISBN 978-0-262-03384-8.  
   **[2]**. [http://www.cs.princeton.edu/~rs/talks/LLRB/RedBlack.pdf](http://www.cs.princeton.edu/~rs/talks/LLRB/RedBlack.pdf)  
