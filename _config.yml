@@ -72,6 +72,11 @@ sass:
   sass_dir: _sass
   style: :compressed
 
+kramdown: 
+  input: GFM
+  use_coderay: true
+pygments: true
+
 comments :
   provider : duoshuo
   duoshuo : 
